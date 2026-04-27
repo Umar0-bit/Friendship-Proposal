@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Best Friend?</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(-45deg, #ff9a9e, #ff6ec4, #7873f5);
+    background-size: 400% 400%;
+    animation: bg 8s infinite;
+}
+
+@keyframes bg {
+    0% { background-position: 0% }
+    50% { background-position: 100% }
+    100% { background-position: 0% }
+}
+
+h1 {
+    margin-top: 100px;
+    font-size: 50px;
+}
+
+button {
+    padding: 15px 30px;
+    margin: 15px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.yes { background: #ff4081; color: white; }
+.no { background: gray; color: white; }
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💖 Will you be my Best Friend? 💖</h1>
+
+<button class="yes" onclick="yesClick()">Yes 💕</button>
+<button class="no" onclick="noClick()">No 😅</button>
+
+<script>
+// 🎆 YES → FIREWORKS
+function yesClick() {
+    document.body.innerHTML = "<canvas id='c'></canvas><h1 style='position:absolute;top:40%;width:100%;text-align:center;'>🎉 Best Friends Forever 💖</h1>";
+
+    let canvas = document.getElementById("c");
+    let ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+
+    function firework(x, y) {
+        for (let i = 0; i < 100; i++) {
+            particles.push({
+                x: x,
+                y: y,
+                angle: Math.random() * 2 * Math.PI,
+                speed: Math.random() * 5 + 2,
+                life: 100
+            });
+        }
+    }
+
+    function draw() {
+        ctx.fillStyle = "rgba(0,0,0,0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < particles.length; i++) {
+            let p = particles[i];
+            p.x += Math.cos(p.angle) * p.speed;
+            p.y += Math.sin(p.angle) * p.speed;
+            p.life--;
+
+            ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)";
+            ctx.fillRect(p.x, p.y, 3, 3);
+
+            if (p.life <= 0) {
+                particles.splice(i, 1);
+                i--;
+            }
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    setInterval(() => {
+        firework(Math.random()*canvas.width, Math.random()*canvas.height/2);
+    }, 700);
+
+    draw();
+}
+
+
+// 😢 NO → CRYING EMOJIS
+function noClick() {
+    for (let i = 0; i < 10; i++) {
+        let e = document.createElement("div");
+        e.innerHTML = "😢";
+        e.style.position = "absolute";
+        e.style.left = Math.random()*100 + "vw";
+        e.style.top = "0px";
+        e.style.fontSize = "40px";
+        e.style.animation = "fall 3s linear";
+
+        document.body.appendChild(e);
+
+        setTimeout(() => e.remove(), 3000);
+    }
+}
+
+// animation for falling emojis
+let style = document.createElement("style");
+style.innerHTML = `
+@keyframes fall {
+    from { transform: translateY(0); }
+    to { transform: translateY(100vh); }
+}`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>
