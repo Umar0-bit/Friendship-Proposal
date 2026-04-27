@@ -1,124 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Best Friend?</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    text-align: center;
-    overflow: hidden;
-    color: white;
-
-    /* prettier animated gradient */
-    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ff6ec4, #7873f5);
-    background-size: 400% 400%;
-    animation: gradientBG 8s ease infinite;
-}
-
-@keyframes gradientBG {
-    0% { background-position: 0% }
-    50% { background-position: 100% }
-    100% { background-position: 0% }
-}
-
-/* glowing heading */
-h1 {
-    margin-top: 100px;
-    font-size: 55px;
-    animation: glow 1s infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 10px white; }
-    to { text-shadow: 0 0 30px pink, 0 0 50px purple; }
-}
-
-p {
-    font-size: 22px;
-    margin: 20px;
-}
-
-/* floating hearts */
-.heart {
-    position: absolute;
-    font-size: 25px;
-    animation: float 6s linear infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(100vh); opacity:1; }
-    100% { transform: translateY(-10vh); opacity:0; }
-}
-
-/* buttons */
-button {
-    padding: 15px 30px;
-    margin: 15px;
-    font-size: 20px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.yes {
-    background: #ff4081;
-    color: white;
-}
-
-.yes:hover {
-    transform: scale(1.1);
-    background: #e91e63;
-}
-
-.no {
-    background: gray;
-    color: white;
-}
-</style>
+<title>Special Day</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h1>💫 One Sweet Question 💫</h1>
+<div id="lockScreen" class="center">
+    <h2>Enter Password 🔒</h2>
+    <input type="password" id="pass">
+    <button onclick="checkPass()">Enter</button>
+</div>
 
-<p>
-    Life feels a little better with the right person around…  
-    Someone to laugh with, share things with, and just be real with ✨  
-</p>
+<div id="mainContent" style="display:none;" class="center">
+    <h1 id="typing"></h1>
+    <button onclick="nextPage()">Start 💖</button>
 
-<h2>Will you be my <b>best friend?</b> 💖</h2>
+    <audio autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+    </audio>
+</div>
 
-<button class="yes" onclick="yes()">Yes 💕</button>
-<button class="no" onclick="move(this)">No 😅</button>
-
-<script>
-// floating hearts
-setInterval(() => {
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.fontSize = (Math.random()*20+20) + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 6000);
-}, 300);
-
-// yes button message
-function yes() {
-    alert("😊 Yay! That means a lot to me!");
-}
-
-// moving NO button
-function move(btn) {
-    btn.style.position = "absolute";
-    btn.style.top = Math.random()*80 + "%";
-    btn.style.left = Math.random()*80 + "%";
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
